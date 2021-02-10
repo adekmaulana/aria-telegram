@@ -20,7 +20,7 @@ module.exports = {
       res.setEncoding('utf8')
       res.on('data', chunk => {
         trackers += '[' + chunk.split(/\n/g).filter(String).toString() + ']'
-        const cmd = 'aria2c \
+        const cmd = `aria2c \
         --enable-rpc \
         --rpc-listen-all=false \
         --rpc-listen-port 6800 \
@@ -34,7 +34,7 @@ module.exports = {
         --split=10 \
         --bt-tracker=${trackers} \
         --daemon=true \
-        --allow-overwrite=true'
+        --allow-overwrite=true`
         execSync(cmd, {encoding: 'utf8'})
       })
     })
