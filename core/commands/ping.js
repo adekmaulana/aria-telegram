@@ -1,12 +1,13 @@
 'use strict'
 
 module.exports = {
-  execute: (ctx, bot) => {
+  execute: (ctx) => {
     const before = new Date().getTime()
-    bot.sendMessage(ctx.chat.id, 'Calculating response time...').then((message) => {
+    ctx.reply('Calculating response time...', { reply_to_message_id: ctx.message.message_id }
+    ).then((message) => {
       const after = new Date().getTime()
       const text = `Request response time: ${after - before} ms`
-      bot.editMessageText(ctx.chat.id, message.message_id, '', text)
+      ctx.telegram.editMessageText(ctx.chat.id, message.message_id, null, text)
     })
   }
 }
