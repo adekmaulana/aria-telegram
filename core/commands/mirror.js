@@ -10,7 +10,7 @@ module.exports = {
         ctx.telegram.editMessageText(ctx.chat.id, message.message_id, null, 'Provide me a magnet link')
       }
       ctx.aria.call("addUri", [magnet]).then((gid) => {
-        ctx.guid.push(gid)
+        ctx.telegram.editMessageText(ctx.chat.id, message.message_id, null, `GID: ${gid}`)
       })
     })
   }

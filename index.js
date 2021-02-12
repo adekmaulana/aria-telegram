@@ -14,7 +14,6 @@ const username = process.env.BOT_USERNAME
 
 bot.context = {
   aria: aria2,
-  guid: guid
 }
 // Open Aria2 WebSocket
 aria2
