@@ -8,12 +8,19 @@ require('./core/aria').init()
 
 const bot = new Telegraf(process.env.BOT_TOKEN)
 const aria2 = new Aria2()
+const guid = []
 const username = process.env.BOT_USERNAME
 
 
 bot.context = {
-  aria: aria2
+  aria: aria2,
+  guid: guid
 }
+// Open Aria2 WebSocket
+aria2
+  .open()
+  .then(() => console.log("Aria2: WebSocket open"))
+  .catch(err => console.log("Aria2:", err));
 
 // pattern is case sensitive including your bot username
 const pattern = /^\/([a-zA-Z]+)(@.*bot)?(?: |$)(.*)/i
@@ -27,6 +34,10 @@ bot.hears(pattern, (ctx) => {
 })
 
 bot.launch()
+
+aria2.on("onDownloadStart", ([guid]) => {
+  console.log("aria2 onDownloadStart", guid);
+});
 
 // Enable graceful stop
 process.once('SIGINT', () => {
