@@ -15,6 +15,7 @@ bot.context = {
   aria: aria2
 }
 
+// pattern is case sensitive including your bot username
 const pattern = /^\/([a-zA-Z]+)(@.*bot)?(?: |$)(.*)/i
 bot.hears(pattern, (ctx) => {
   if (ctx.match[2] !== username || !ctx.match[2]) {
@@ -28,5 +29,9 @@ bot.hears(pattern, (ctx) => {
 bot.launch()
 
 // Enable graceful stop
-process.once('SIGINT', () => bot.stop('SIGINT'))
-process.once('SIGTERM', () => bot.stop('SIGTERM'))
+process.once('SIGINT', () => {
+  bot.stop('SIGINT')
+})
+process.once('SIGTERM', () => {
+  bot.stop('SIGTERM')
+})
