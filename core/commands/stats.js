@@ -8,10 +8,28 @@ module.exports = {
     ).then((message) => {
       if (param) {
         const data = ctx.aria.get_download(param)
-        data.then((status) => ctx.reply(`status: ${JSON.stringify(status)}`))
+        data.then((status) => {
+          let text
+          if (status === null) {
+            text = 'status: GID not found'
+          } else {
+            text = JSON.stringify(status)
+          }
+          return ctx.telegram.editMessageText(
+            ctx.chat.id,
+            message.message_id,
+            null,
+            text
+          )
+        })
       } else {
         const downloads = ctx.aria.get_downloads()
-        ctx.reply(downloads)
+        return ctx.telegram.editMessageText(
+          ctx.chat.id,
+          message.message_id,
+          null,
+          downloads
+        )
       }
     })
   }

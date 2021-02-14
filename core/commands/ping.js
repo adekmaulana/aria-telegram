@@ -8,7 +8,7 @@ module.exports = {
     ).then((message) => {
       const after = new Date().getTime()
       const text = `Request response time: ${after - before} ms`
-      ctx.telegram.editMessageText(ctx.chat.id, message.message_id, null, text)
+      return ctx.telegram.editMessageText(ctx.chat.id, message.message_id, null, text)
     })
   }
 }

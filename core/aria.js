@@ -66,15 +66,9 @@ module.exports = {
 
   get_downloads: function(from = 0, to = 0) {
     const status = []
-    aria.call('tellActive').then((data) => {
-      status.push(data)
-    })
-    aria.call('tellWaiting', from, to).then((data) => {
-      status.push(data)
-    })
-    aria.call('tellStopped', from, to).then((data) => {
-      status.push(data)
-    })
+    aria.call('tellActive').then((data) => status.push(data))
+    aria.call('tellWaiting', from, to).then((data) => status.push(data))
+    aria.call('tellStopped', from, to).then((data) => status.push(data))
     return status
   },
 
