@@ -1,18 +1,19 @@
-'use strict'
+"use strict";
+/* eslint-disable camelcase */
 
 
 module.exports = {
-  execute: function(ctx) {
-    const magnet = ctx.match[3]
-    ctx.reply('Processing...', { reply_to_message_id: ctx.message.message_id }
-    ).then((message) => {
+  execute(ctx) {
+    const magnet = ctx.match[3];
+    const replyTo = { reply_to_message_id: ctx.message.message_id };
+    ctx.reply("Processing...", replyTo).then((message) => {
       if (!magnet) {
          return ctx.telegram.editMessageText(
            ctx.chat.id,
            message.message_id,
            null,
-           'Provide me a magnet link'
-         )
+          "Provide me a magnet link"
+         );
       }
       ctx.aria.rawMethod.call("addUri", [magnet]).then((gid) => {
          return ctx.telegram.editMessageText(
@@ -20,8 +21,8 @@ module.exports = {
            message.message_id,
            null,
            `GID: ${gid}`
-         )
-      })
-    })
+         );
+      });
+    });
   }
-}
+};
